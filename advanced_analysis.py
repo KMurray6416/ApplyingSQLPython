@@ -2,13 +2,16 @@
 
 from database_connect import connect_database
 
-def get_members_in_age_range(start_age, end_age):
+def get_members_in_age_range():
     conn = connect_database()
     if conn is not None:
         try:
             cursor = conn.cursor()
 
             members = []
+
+            start_age = int(input("Enter the age to start age range: "))
+            end_age = int(input("Enter the age to end with: "))         
 
             query = "SELECT * FROM Members WHERE age BETWEEN %s AND %s"
 
@@ -27,7 +30,7 @@ def get_members_in_age_range(start_age, end_age):
             else:
                 for member in members:
                     member_id, name, age = member
-                    return(f"ID: {member_id}, Member Name: {name}, Age: {age}")
+                    print(f"ID: {member_id}, Member Name: {name}, Age: {age}")
 
         except Exception as e:
             print(f"Error: {e}")
